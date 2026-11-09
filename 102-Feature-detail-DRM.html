@@ -1,0 +1,231 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>102 &middot; Feature detail: DRM &middot; SMB Portal</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#E9E7EF;letter-spacing:.005em;font-family:'Brand',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#16181D}
+a{color:#22408A;text-decoration:none} a:hover{text-decoration:underline}
+.page-head{padding:22px 32px 6px}
+.page-head .back{font:500 12px Brand,sans-serif;color:#22408A}
+.page-head .eyebrow{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7C7791;margin-top:10px}
+.page-head .title{font:600 24px Brand,sans-serif;color:#16181D;margin-top:4px}
+.page-head .sub{font:400 13px Brand,sans-serif;color:#55506A;margin-top:5px;max-width:1100px;line-height:1.55}
+.page-head .pn{display:flex;gap:14px;margin-top:8px;font:500 12px Brand,sans-serif}
+.stage{padding:16px 32px 48px;display:inline-block;background:#E9E7EF}
+.frame{width:1440px;background:#F3F3F3;border-radius:10px;overflow:hidden;box-shadow:0 18px 44px rgba(22,24,29,.18)}
+.hdr{height:60px;background:var(--hdr);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff}
+.brand .wm{font:700 18px Brand,sans-serif;letter-spacing:.02em}
+.brand .wm small{font:600 10px Brand,sans-serif;letter-spacing:.14em;opacity:.7;margin-left:6px}
+.brand .dv{width:1px;height:22px;background:rgba(255,255,255,.3)}
+.brand .prod{font:500 12px Brand,sans-serif;color:rgba(255,255,255,.78)}
+.nav{display:flex;gap:8px}
+.nav div{padding:7px 15px;border-radius:20px;border:1px solid rgba(255,255,255,.2);font:500 13px Brand,sans-serif;color:#E8EAEE;display:flex;gap:7px;align-items:center;white-space:nowrap}
+.nav div.on{background:#fff;color:var(--hdr);border-color:#fff;font-weight:600}
+.nav .ct{font:700 10px Brand,sans-serif;background:var(--acc);color:#fff;border-radius:9px;padding:1px 6px}
+.hr{display:flex;align-items:center;gap:14px;justify-self:end}
+.region{font:600 11px Brand,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:4px 10px;display:flex;gap:6px;align-items:center}
+.region i{width:7px;height:7px;border-radius:50%;background:var(--acc);display:block}
+.bell{position:relative;width:19px;height:19px}
+.bell b{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#D9483B;border:1.5px solid var(--hdr)}
+.av{width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font:700 11px Brand,sans-serif;display:flex;align-items:center;justify-content:center;flex:none}
+.av.sm{width:24px;height:24px;font-size:10px}
+.av.lg{width:40px;height:40px;font-size:14px}
+.strip{height:26px;background:var(--grad);display:flex;align-items:center;padding:0 20px;font:600 11px Brand,sans-serif;color:#fff;letter-spacing:.02em}
+.body{display:flex;min-height:780px}
+.side{width:224px;flex:none;background:#fff;border-right:1px solid #E5E7EB;padding:16px 0}
+.side .eb{font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.13em;color:#6B7280;padding:14px 16px 8px}
+.side .eb:first-child{padding-top:0}
+.srow{height:34px;padding:0 16px;display:flex;align-items:center;gap:10px;font:400 13px Brand,sans-serif;color:#16181D}
+.srow.on{background:var(--soft);font-weight:600;box-shadow:inset 3px 0 0 var(--hdr)}
+.srow .n{margin-left:auto;font:600 10px Brand,sans-serif;background:#EEF0F3;border-radius:9px;padding:2px 7px}
+.srow.on .n{background:var(--hdr);color:#fff}
+.main{flex:1;padding:24px 28px 40px;min-width:0}
+.card{background:#fff;border:1px solid #E7E7E7;border-radius:16px}
+.ch{padding:13px 16px;font:600 13px Brand,sans-serif;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#FBFBFC;border-radius:16px 16px 0 0}
+.cb{padding:16px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:22px;font:600 12px Brand,sans-serif;white-space:nowrap;line-height:1}
+.btn.p{background:var(--hdr);color:#fff}
+.btn.s{background:#fff;border:1px solid #D5D8DE;color:#16181D}
+.btn.a{background:var(--acc);color:#16181D}
+.btn.sm{padding:6px 11px;font-size:11px}
+.btn.lg{padding:13px 20px;font-size:13px;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:5px;font:600 11px Brand,sans-serif;padding:3px 9px;border-radius:12px;white-space:nowrap}
+.ok{background:#E7F5EC;color:#166534}.warn{background:#FDF3DC;color:#7A5300}.err{background:#FBEAE7;color:#96271C}
+.neu{background:#EEF0F3;color:#3F4450}.info{background:#E3ECF7;color:#1F3864}.acc{background:var(--soft);color:var(--deep)}
+.field{border:1px solid #D5D8DE;border-radius:8px;padding:9px 12px;font:400 13px Brand,sans-serif;background:#fff;color:#16181D;display:flex;align-items:center;gap:8px;min-height:38px}
+.field.ph{color:#9097A3}
+.field.ta{align-items:flex-start;min-height:120px;line-height:1.55}
+.lbl{font:600 12px Brand,sans-serif;margin-bottom:6px;display:block;color:#16181D}
+.hint{font:400 11px Brand,sans-serif;color:#6B7280;margin-top:5px;line-height:1.45}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 6px 3px 3px;border-radius:14px;background:#EEF0F3;font:500 12px Brand,sans-serif}
+.chip.ext{background:#FFF4E5}
+.muted{color:#6B7280}
+.h1{font:600 22px Brand,sans-serif}
+.h2{font:600 16px Brand,sans-serif}
+.t13{font:400 13px Brand,sans-serif;line-height:1.5}.t12{font:400 12px Brand,sans-serif;line-height:1.45}.t11{font:400 11px Brand,sans-serif;line-height:1.45}
+.b13{font:600 13px Brand,sans-serif}.b12{font:600 12px Brand,sans-serif}.b14{font:600 14px Brand,sans-serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+table.dt{width:100%;border-collapse:collapse}
+table.dt th{text-align:left;font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:#6B7280;padding:10px 14px;border-bottom:1px solid #E5E7EB;background:#FBFBFC;white-space:nowrap}
+table.dt td{padding:11px 14px;border-bottom:1px solid #F0F1F3;font:400 13px Brand,sans-serif;vertical-align:middle}
+table.dt tr:last-child td{border-bottom:none}
+.own{display:inline-flex;align-items:center;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.02em;padding:2px 7px;border-radius:4px;border:1px solid;white-space:nowrap;vertical-align:middle}
+.own.ms{color:#0F766E;border-color:#99D5CB;background:#EFFAF7}
+.own.box{color:#0B5CAD;border-color:#A9C8EC;background:#EFF5FC}
+.own.ibm{color:#5B3CC4;border-color:#C9BDF0;background:#F4F1FD}
+.own.okta{color:#3F4450;border-color:#CBD0D8;background:#F4F5F7}
+.note{display:flex;gap:10px;align-items:flex-start;padding:10px 13px;border-radius:8px;font:500 12px Brand,sans-serif;line-height:1.5}
+.note .k{font:700 10px 'IBM Plex Mono',monospace;letter-spacing:.04em;padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:1px}
+.note.q{background:#FFF8E6;border:1px dashed #E0B24A;color:#6B4A00}.note.q .k{background:#F4C46A;color:#4A3300}
+.note.a{background:#EEF4FC;border:1px dashed #7FA6DA;color:#1F3864}.note.a .k{background:#BFD4F0;color:#1F3864}
+.foot{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-top:1px solid #E5E7EB;background:#fff}
+.foot .c{font:400 11px Brand,sans-serif;color:#6B7280}
+.foot .l{display:flex;gap:16px;font:500 11px Brand,sans-serif}
+.foot .l span{color:#3F4450;text-decoration:underline;text-underline-offset:2px}
+.foot img{height:16px;width:auto;display:block}
+.drop{border:2px dashed #C9CDD5;border-radius:12px;background:#fff;padding:22px;text-align:center}
+.tog{width:30px;height:17px;border-radius:9px;background:#D5D8DE;position:relative;flex:none}
+.tog:after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff}
+.tog.on{background:var(--hdr)}.tog.on:after{left:15px}
+.note{display:none!important}
+div:has(> .note):not(:has(> :not(.note))){display:none!important}
+.ser{font-family:'Serif',serif;font-style:italic;font-weight:500;letter-spacing:-.01em}
+.eyepill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.06);font:600 12px Brand,sans-serif}
+.eyepill:before{content:'';width:6px;height:6px;border-radius:50%;background:#0A0A0A}
+.banner{display:flex;gap:12px;align-items:center;padding:11px 16px;border-radius:14px;font:500 13px Brand,sans-serif}
+.radio{width:15px;height:15px;border-radius:50%;border:1.5px solid #9097A3;flex:none;margin-top:1px}
+.radio.on{border:4.5px solid var(--hdr)}
+.cbx{width:15px;height:15px;border-radius:4px;border:1.5px solid #9097A3;flex:none}
+.cbx.on{background:var(--hdr);border-color:var(--hdr);display:flex;align-items:center;justify-content:center}
+.ficon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;font:700 9px 'IBM Plex Mono',monospace;color:#fff}
+.tabs{display:flex;gap:22px;border-bottom:1px solid #E5E7EB;margin-bottom:18px}
+.tabs div{padding:0 2px 10px;font:500 13px Brand,sans-serif;color:#6B7280}
+.tabs div.on{color:#16181D;font-weight:600;box-shadow:inset 0 -2px 0 var(--hdr)}
+.kpi{background:#fff;border:1px solid #E7E7E7;border-radius:16px;padding:14px 16px}
+.kpi .v{font:600 24px Brand,sans-serif;margin-top:4px}
+.kpi .l{font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#6B7280}
+.kpi .d{font:500 11px Brand,sans-serif;color:#6B7280;margin-top:3px}
+
+.hdr.light{background:#fff;border-bottom:1px solid #E5E7EB}
+.hdr.light .nav div{color:#3F4450;border-color:#E2E4E8}
+.hdr.light .nav div.on{background:#2B2B2E;color:#fff;border-color:#2B2B2E}
+.hdr.light .acct{font:500 12px Brand,sans-serif;color:#3F4450}
+.hdr .acct{font:500 12px Brand,sans-serif;color:rgba(255,255,255,.85)}
+.btn.o{background:var(--acc);color:#fff}
+.btn.g{background:transparent;color:#3F4450;padding-left:6px;padding-right:6px}
+.btn.dis{background:#E5E7EB;color:#9097A3}
+.btn.red{background:#B4321F;color:#fff}
+.h1{font:600 30px Brand,sans-serif;letter-spacing:-.015em;line-height:1.15}
+.h2{font:600 20px Brand,sans-serif;letter-spacing:-.01em}
+.h3{font:600 16px Brand,sans-serif}
+.lead{font:400 15px Brand,sans-serif;color:#4B5160;line-height:1.6}
+.row{display:flex;gap:16px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.sp{flex:1}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.mt24{margin-top:24px}
+.tier{background:#fff;border:1.5px solid #E2E4E8;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;position:relative}
+.tier.sel{border:2px solid var(--acc);box-shadow:0 8px 24px rgba(236,100,18,.14)}
+.tier .tn{font:600 18px Brand,sans-serif}
+.tier .tp{font:600 30px Brand,sans-serif;letter-spacing:-.02em}
+.tier .tp small{font:500 13px Brand,sans-serif;color:#6B7280;letter-spacing:0}
+.tier .tag{position:absolute;top:-11px;left:20px;font:700 10px Brand,sans-serif;letter-spacing:.08em;text-transform:uppercase;background:var(--acc);color:#fff;border-radius:10px;padding:4px 10px}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.tier li{font:400 13px Brand,sans-serif;color:#2A2E37;display:flex;gap:8px;align-items:flex-start}
+.tick{color:#1F8A4C;font-weight:700;flex:none}
+.lockc{color:#9097A3;flex:none}
+.cmp{width:100%;border-collapse:collapse;font:400 13px Brand,sans-serif}
+.cmp th{font:600 12px Brand,sans-serif;text-align:left;padding:10px 14px;background:#FBFBFC;border-bottom:1px solid #E5E7EB;color:#3F4450}
+.cmp td{padding:10px 14px;border-bottom:1px solid #F0F1F3}
+.cmp td.c,.cmp th.c{text-align:center}
+.cmp tr.grp td{font:600 11px Brand,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:#6B7280;background:#FAFAFB}
+.tbl{width:100%;border-collapse:collapse;font:400 13px Brand,sans-serif}
+.tbl th{font:600 11px Brand,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#6B7280;text-align:left;padding:10px 14px;border-bottom:1px solid #E5E7EB}
+.tbl td{padding:12px 14px;border-bottom:1px solid #F0F1F3;vertical-align:middle}
+.steps{display:flex;gap:0;align-items:center}
+.stp{display:flex;align-items:center;gap:8px;font:500 13px Brand,sans-serif;color:#6B7280}
+.stp i{width:24px;height:24px;border-radius:50%;border:1.5px solid #C9CDD5;display:flex;align-items:center;justify-content:center;font:600 11px Brand,sans-serif;font-style:normal;color:#6B7280;background:#fff}
+.stp.on{color:#16181D;font-weight:600}.stp.on i{border-color:var(--acc);background:var(--acc);color:#fff}
+.stp.done i{border-color:#1F8A4C;background:#1F8A4C;color:#fff}
+.stl{width:56px;height:1.5px;background:#D5D8DE;margin:0 12px}
+.bar{height:8px;border-radius:4px;background:#EEF0F3;overflow:hidden}
+.bar b{display:block;height:100%;background:var(--acc);border-radius:4px}
+.sw{width:28px;height:28px;border-radius:8px;border:1px solid rgba(0,0,0,.08);flex:none}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #F0F1F3}
+.chk:first-child{border-top:0}
+.dot{width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 11px Brand,sans-serif;color:#fff}
+.dot.ok{background:#1F8A4C}.dot.run{background:var(--acc)}.dot.wait{background:#fff;border:1.5px solid #C9CDD5}
+.locked{opacity:.55;filter:grayscale(1)}
+.lockpill{display:inline-flex;align-items:center;gap:5px;font:700 10px Brand,sans-serif;letter-spacing:.06em;text-transform:uppercase;border-radius:10px;padding:3px 8px;background:#2B2B2E;color:#fff}
+.lockpill.prem{background:#7A4BC2}.lockpill.ent{background:#2B2B2E}
+.modalwrap{position:absolute;inset:0;background:rgba(18,20,26,.48);display:flex;align-items:center;justify-content:center;z-index:5}
+.modal{background:#fff;border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.3);overflow:hidden}
+.web-hero{background:linear-gradient(180deg,#FFF7F1 0%,#F3F3F3 100%);padding:56px 64px 40px;text-align:center}
+.eyebrow2{font:600 11px Brand,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.email{width:640px;margin:0 auto;background:#fff;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden}
+.mailmeta{background:#fff;border-bottom:1px solid #E5E7EB;padding:16px 28px;font:400 13px Brand,sans-serif;color:#3F4450;display:grid;grid-template-columns:70px 1fr;row-gap:6px}
+.mailmeta b{font-weight:600;color:#6B7280}
+.otp{display:flex;gap:10px}
+.otp div{width:52px;height:60px;border:1.5px solid #D5D8DE;border-radius:10px;display:flex;align-items:center;justify-content:center;font:600 24px Brand,sans-serif;background:#fff}
+.otp div.f{border-color:var(--acc)}
+.phbox{background:repeating-linear-gradient(135deg,#F1F2F4 0 10px,#E9EBEE 10px 20px);border:1px dashed #C9CDD5;border-radius:12px;display:flex;align-items:center;justify-content:center;font:500 12px Brand,sans-serif;color:#6B7280}
+.qr{width:132px;height:132px;background:
+ conic-gradient(from 90deg at 2px 2px,#0000 90deg,#16181D 0) 0 0/12px 12px;border:8px solid #fff;outline:1px solid #E5E7EB;border-radius:6px}
+.toggle{width:34px;height:20px;border-radius:10px;background:#C9CDD5;position:relative;flex:none}
+.toggle:after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.toggle.on{background:#1F8A4C}.toggle.on:after{left:16px}
+.stepper{display:inline-flex;align-items:center;border:1px solid #D5D8DE;border-radius:10px;overflow:hidden;background:#fff}
+.stepper span{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font:600 15px Brand,sans-serif;color:#3F4450}
+.stepper b{width:44px;text-align:center;font:600 14px Brand,sans-serif;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;line-height:34px}
+</style></head>
+<body>
+<div class="page-head">
+  <a class="back" href="index.html">&larr; All screens</a>
+  <div class="eyebrow">102 &middot; Website</div>
+  <div class="title">Feature detail: DRM</div>
+  <div class="sub">Template for the page behind each feature in the comparison table. DRM is the example because it needs the longest explanation. The tier pill tells visitors which plan includes it. Protected files currently open in a desktop viewer app; a browser viewer is in development.</div><div class="pn"><a href="101-Pricing-and-plans.html">&larr; 101 Pricing and plan comparison</a> &nbsp;&middot;&nbsp; <a href="103-Create-account.html">103 Create account &rarr;</a></div>
+</div>
+<div class="stage"><div class="frame" style="--hdr:#2B2B2E;--acc:#EC6412;--soft:#FDF0E7;--deep:#B44A0B;--grad:linear-gradient(90deg,#F7892F 0%,#EC6412 55%,#C9500C 100%);position:relative;" data-screen-label="102 Feature detail: DRM">
+<div class="hdr light" style="height:72px;padding:0 40px"><div class="brand"><img src="assets/mstrategy-logo.png" alt="MStrategy" style="height:40px;width:auto;display:block"></div><div style="display:flex;gap:30px"><span style="font:500 14px Brand,sans-serif;color:#2A2E37">Platform</span><span style="font:500 14px Brand,sans-serif;color:#2A2E37">Features</span><span style="font:500 14px Brand,sans-serif;color:#2A2E37">Pricing</span><span style="font:500 14px Brand,sans-serif;color:#2A2E37">Why MStrategy</span><span style="font:500 14px Brand,sans-serif;color:#2A2E37">Contact</span></div><div class="hr"><span style="font:600 14px Brand,sans-serif;color:#2A2E37">Sign in</span><div class="btn o">Get started</div></div></div>
+<div style="padding:22px 64px 0" class="t12 muted">Features &nbsp;&rsaquo;&nbsp; <b style="color:#16181D">DRM</b></div>
+<div style="padding:22px 64px 30px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center">
+  <div>
+    <span class="lockpill ent"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg> Included in Enterprise</span>
+    <div class="h1" style="font-size:38px;margin-top:16px">Keep control of documents after they're shared.</div>
+    <div class="lead mt16">Digital rights management travels with the file. Decide who can view, print or copy, set an expiry date, and revoke access to a document even after it has been downloaded.</div>
+    <div style="display:flex;gap:10px;margin-top:24px"><div class="btn o lg">Get started with Enterprise</div><div class="btn s lg"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16181D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polygon points="6 4 20 12 6 20 6 4"/></svg> Watch a 2-minute demo</div></div>
+  </div>
+  <div class="card" style="padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.08)">
+    <div class="row" style="align-items:center"><div class="b13">Q3 Investor Letter.pdf</div><div class="sp"></div><span class="pill ok">Protected</span></div>
+    <div class="row mt12" style="gap:14px">
+      <div class="phbox" style="height:230px;flex:1.2">Document preview</div>
+      <div style="flex:1" class="col">
+        <div class="b13">Rights for this file</div>
+        <div class="row" style="align-items:center"><span class="t12 sp">View</span><div class="toggle on"></div></div>
+        <div class="row" style="align-items:center"><span class="t12 sp">Print</span><div class="toggle"></div></div>
+        <div class="row" style="align-items:center"><span class="t12 sp">Copy text</span><div class="toggle"></div></div>
+        <div><label class="lbl">Access expires</label><div class="field">Dec 31, 2026</div></div>
+        <div class="btn s sm" style="color:#B4321F;justify-content:center">Revoke access now</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="padding:0 64px 30px" class="grid3">
+  <div class="card cb"><div class="b14">Rights that travel</div><div class="t12 muted mt8">Permissions stay attached to the file wherever it goes: inside the portal, on a laptop, or forwarded by email.</div></div>
+  <div class="card cb"><div class="b14">Expire and revoke</div><div class="t12 muted mt8">Set a date when access ends, or switch it off instantly. The file stops opening for everyone you choose.</div></div>
+  <div class="card cb"><div class="b14">See every open</div><div class="t12 muted mt8">Each view, print attempt and download is logged against the person, so you always know who saw what.</div></div>
+</div>
+<div style="padding:0 64px 40px"><div class="card" style="padding:22px 26px">
+  <div class="h3">How it works</div>
+  <div class="grid4 mt16">
+    <div class="row" style="gap:10px"><div class="dot run" style="background:var(--acc)">1</div><div class="t12">Upload or share a file from your portal as usual</div></div><div class="row" style="gap:10px"><div class="dot run" style="background:var(--acc)">2</div><div class="t12">Choose who can view, print or copy, and for how long</div></div><div class="row" style="gap:10px"><div class="dot run" style="background:var(--acc)">3</div><div class="t12">Recipients open it in the DRM viewer app on their desktop</div></div><div class="row" style="gap:10px"><div class="dot run" style="background:var(--acc)">4</div><div class="t12">Change or revoke rights any time from the activity report</div></div>
+  </div>
+  <div class="banner info mt16"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1F3864" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg> <span class="t12">Opening a protected file on a desktop requires the DRM viewer app. A viewer that works right in the browser is in development.</span></div>
+  <div class="t12 muted mt16">Often paired with <span style="color:var(--deep);font-weight:600">Forensic watermarking</span> and <span style="color:var(--deep);font-weight:600">RBAC / ABAC</span>, also in Enterprise.</div>
+</div></div>
+<div style="background:#1E1F22;color:#C9CDD5;padding:28px 64px;display:flex;justify-content:space-between;align-items:center;font:400 12px Brand,sans-serif"><span>&copy; 2026 M Strategy Group &middot; info@mstrategygroup.com</span><span style="display:flex;gap:20px"><span>Privacy Policy</span><span>Terms and Conditions</span><span>Security</span><span>Contact Us</span></span><span>Microsoft Azure Cloud &middot; Native Box ICM &amp; AI &middot; SOC2 Type II</span></div>
+</div></div>
+</body></html>
