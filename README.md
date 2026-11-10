@@ -2,7 +2,9 @@
 
 Static wireframes for the MStrategy SMB Portal: a self-serve hub where a customer picks a plan (Base, Premium or Enterprise), pays by card and gets a branded portal provisioned in MStrategy Azure and connected to their Box.
 
-Open `index.html` for the screen list and the Cedar Ridge Advisory walkthrough. Every screen is a flat HTML file that loads `assets/`; screens link to each other by filename.
+Open `index.html` and click **Start the clickable prototype**. The prototype (`app/`) works like the real product: buttons, tabs and links take you to the next screen, and a toolbar at the bottom gives back/next (arrow keys work too), a list of all screens, notes for the current screen and a "Show links" toggle.
+
+The annotated wireframes (one page per screen with design notes) are the HTML files at the root, and `PDF Packet/` has all of them as one PDF.
 
 - `1xx` Portal Hub (MStrategy branded): website, sign-up, launch, manage, billing
 - `2xx` Emails

@@ -1,0 +1,278 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>105 &middot; Hub dashboard: first visit &middot; SMB Portal prototype</title>
+<link rel="stylesheet" href="../assets/fonts.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#E9E7EF;letter-spacing:.005em;font-family:'Brand',system-ui,sans-serif;-webkit-font-smoothing:antialiased;color:#16181D}
+a{color:#22408A;text-decoration:none} a:hover{text-decoration:underline}
+.page-head{padding:22px 32px 6px}
+.page-head .back{font:500 12px Brand,sans-serif;color:#22408A}
+.page-head .eyebrow{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#7C7791;margin-top:10px}
+.page-head .title{font:600 24px Brand,sans-serif;color:#16181D;margin-top:4px}
+.page-head .sub{font:400 13px Brand,sans-serif;color:#55506A;margin-top:5px;max-width:1100px;line-height:1.55}
+.page-head .pn{display:flex;gap:14px;margin-top:8px;font:500 12px Brand,sans-serif}
+.stage{padding:16px 32px 48px;display:inline-block;background:#E9E7EF}
+.frame{width:1440px;background:#F3F3F3;border-radius:10px;overflow:hidden;box-shadow:0 18px 44px rgba(22,24,29,.18)}
+.hdr{height:60px;background:var(--hdr);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff}
+.brand .wm{font:700 18px Brand,sans-serif;letter-spacing:.02em}
+.brand .wm small{font:600 10px Brand,sans-serif;letter-spacing:.14em;opacity:.7;margin-left:6px}
+.brand .dv{width:1px;height:22px;background:rgba(255,255,255,.3)}
+.brand .prod{font:500 12px Brand,sans-serif;color:rgba(255,255,255,.78)}
+.nav{display:flex;gap:8px}
+.nav div{padding:7px 15px;border-radius:20px;border:1px solid rgba(255,255,255,.2);font:500 13px Brand,sans-serif;color:#E8EAEE;display:flex;gap:7px;align-items:center;white-space:nowrap}
+.nav div.on{background:#fff;color:var(--hdr);border-color:#fff;font-weight:600}
+.nav .ct{font:700 10px Brand,sans-serif;background:var(--acc);color:#fff;border-radius:9px;padding:1px 6px}
+.hr{display:flex;align-items:center;gap:14px;justify-self:end}
+.region{font:600 11px Brand,sans-serif;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:4px 10px;display:flex;gap:6px;align-items:center}
+.region i{width:7px;height:7px;border-radius:50%;background:var(--acc);display:block}
+.bell{position:relative;width:19px;height:19px}
+.bell b{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#D9483B;border:1.5px solid var(--hdr)}
+.av{width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font:700 11px Brand,sans-serif;display:flex;align-items:center;justify-content:center;flex:none}
+.av.sm{width:24px;height:24px;font-size:10px}
+.av.lg{width:40px;height:40px;font-size:14px}
+.strip{height:26px;background:var(--grad);display:flex;align-items:center;padding:0 20px;font:600 11px Brand,sans-serif;color:#fff;letter-spacing:.02em}
+.body{display:flex;min-height:780px}
+.side{width:224px;flex:none;background:#fff;border-right:1px solid #E5E7EB;padding:16px 0}
+.side .eb{font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.13em;color:#6B7280;padding:14px 16px 8px}
+.side .eb:first-child{padding-top:0}
+.srow{height:34px;padding:0 16px;display:flex;align-items:center;gap:10px;font:400 13px Brand,sans-serif;color:#16181D}
+.srow.on{background:var(--soft);font-weight:600;box-shadow:inset 3px 0 0 var(--hdr)}
+.srow .n{margin-left:auto;font:600 10px Brand,sans-serif;background:#EEF0F3;border-radius:9px;padding:2px 7px}
+.srow.on .n{background:var(--hdr);color:#fff}
+.main{flex:1;padding:24px 28px 40px;min-width:0}
+.card{background:#fff;border:1px solid #E7E7E7;border-radius:16px}
+.ch{padding:13px 16px;font:600 13px Brand,sans-serif;border-bottom:1px solid #EFF0F2;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#FBFBFC;border-radius:16px 16px 0 0}
+.cb{padding:16px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:22px;font:600 12px Brand,sans-serif;white-space:nowrap;line-height:1}
+.btn.p{background:var(--hdr);color:#fff}
+.btn.s{background:#fff;border:1px solid #D5D8DE;color:#16181D}
+.btn.a{background:var(--acc);color:#16181D}
+.btn.sm{padding:6px 11px;font-size:11px}
+.btn.lg{padding:13px 20px;font-size:13px;justify-content:center}
+.pill{display:inline-flex;align-items:center;gap:5px;font:600 11px Brand,sans-serif;padding:3px 9px;border-radius:12px;white-space:nowrap}
+.ok{background:#E7F5EC;color:#166534}.warn{background:#FDF3DC;color:#7A5300}.err{background:#FBEAE7;color:#96271C}
+.neu{background:#EEF0F3;color:#3F4450}.info{background:#E3ECF7;color:#1F3864}.acc{background:var(--soft);color:var(--deep)}
+.field{border:1px solid #D5D8DE;border-radius:8px;padding:9px 12px;font:400 13px Brand,sans-serif;background:#fff;color:#16181D;display:flex;align-items:center;gap:8px;min-height:38px}
+.field.ph{color:#9097A3}
+.field.ta{align-items:flex-start;min-height:120px;line-height:1.55}
+.lbl{font:600 12px Brand,sans-serif;margin-bottom:6px;display:block;color:#16181D}
+.hint{font:400 11px Brand,sans-serif;color:#6B7280;margin-top:5px;line-height:1.45}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 6px 3px 3px;border-radius:14px;background:#EEF0F3;font:500 12px Brand,sans-serif}
+.chip.ext{background:#FFF4E5}
+.muted{color:#6B7280}
+.h1{font:600 22px Brand,sans-serif}
+.h2{font:600 16px Brand,sans-serif}
+.t13{font:400 13px Brand,sans-serif;line-height:1.5}.t12{font:400 12px Brand,sans-serif;line-height:1.45}.t11{font:400 11px Brand,sans-serif;line-height:1.45}
+.b13{font:600 13px Brand,sans-serif}.b12{font:600 12px Brand,sans-serif}.b14{font:600 14px Brand,sans-serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+table.dt{width:100%;border-collapse:collapse}
+table.dt th{text-align:left;font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:#6B7280;padding:10px 14px;border-bottom:1px solid #E5E7EB;background:#FBFBFC;white-space:nowrap}
+table.dt td{padding:11px 14px;border-bottom:1px solid #F0F1F3;font:400 13px Brand,sans-serif;vertical-align:middle}
+table.dt tr:last-child td{border-bottom:none}
+.own{display:inline-flex;align-items:center;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.02em;padding:2px 7px;border-radius:4px;border:1px solid;white-space:nowrap;vertical-align:middle}
+.own.ms{color:#0F766E;border-color:#99D5CB;background:#EFFAF7}
+.own.box{color:#0B5CAD;border-color:#A9C8EC;background:#EFF5FC}
+.own.ibm{color:#5B3CC4;border-color:#C9BDF0;background:#F4F1FD}
+.own.okta{color:#3F4450;border-color:#CBD0D8;background:#F4F5F7}
+.note{display:flex;gap:10px;align-items:flex-start;padding:10px 13px;border-radius:8px;font:500 12px Brand,sans-serif;line-height:1.5}
+.note .k{font:700 10px 'IBM Plex Mono',monospace;letter-spacing:.04em;padding:2px 6px;border-radius:4px;white-space:nowrap;margin-top:1px}
+.note.q{background:#FFF8E6;border:1px dashed #E0B24A;color:#6B4A00}.note.q .k{background:#F4C46A;color:#4A3300}
+.note.a{background:#EEF4FC;border:1px dashed #7FA6DA;color:#1F3864}.note.a .k{background:#BFD4F0;color:#1F3864}
+.foot{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-top:1px solid #E5E7EB;background:#fff}
+.foot .c{font:400 11px Brand,sans-serif;color:#6B7280}
+.foot .l{display:flex;gap:16px;font:500 11px Brand,sans-serif}
+.foot .l span{color:#3F4450;text-decoration:underline;text-underline-offset:2px}
+.foot img{height:16px;width:auto;display:block}
+.drop{border:2px dashed #C9CDD5;border-radius:12px;background:#fff;padding:22px;text-align:center}
+.tog{width:30px;height:17px;border-radius:9px;background:#D5D8DE;position:relative;flex:none}
+.tog:after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:#fff}
+.tog.on{background:var(--hdr)}.tog.on:after{left:15px}
+.note{display:none!important}
+div:has(> .note):not(:has(> :not(.note))){display:none!important}
+.ser{font-family:'Serif',serif;font-style:italic;font-weight:500;letter-spacing:-.01em}
+.eyepill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.06);font:600 12px Brand,sans-serif}
+.eyepill:before{content:'';width:6px;height:6px;border-radius:50%;background:#0A0A0A}
+.banner{display:flex;gap:12px;align-items:center;padding:11px 16px;border-radius:14px;font:500 13px Brand,sans-serif}
+.radio{width:15px;height:15px;border-radius:50%;border:1.5px solid #9097A3;flex:none;margin-top:1px}
+.radio.on{border:4.5px solid var(--hdr)}
+.cbx{width:15px;height:15px;border-radius:4px;border:1.5px solid #9097A3;flex:none}
+.cbx.on{background:var(--hdr);border-color:var(--hdr);display:flex;align-items:center;justify-content:center}
+.ficon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;font:700 9px 'IBM Plex Mono',monospace;color:#fff}
+.tabs{display:flex;gap:22px;border-bottom:1px solid #E5E7EB;margin-bottom:18px}
+.tabs div{padding:0 2px 10px;font:500 13px Brand,sans-serif;color:#6B7280}
+.tabs div.on{color:#16181D;font-weight:600;box-shadow:inset 0 -2px 0 var(--hdr)}
+.kpi{background:#fff;border:1px solid #E7E7E7;border-radius:16px;padding:14px 16px}
+.kpi .v{font:600 24px Brand,sans-serif;margin-top:4px}
+.kpi .l{font:600 10px Brand,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#6B7280}
+.kpi .d{font:500 11px Brand,sans-serif;color:#6B7280;margin-top:3px}
+
+body{display:flex;flex-direction:column;align-items:center}
+.page-head{width:1504px;max-width:100%}
+.stage{display:block;width:fit-content;margin:0 auto}
+.hdr.light{background:#fff;border-bottom:1px solid #E5E7EB}
+.hdr.light .nav div{color:#3F4450;border-color:#E2E4E8}
+.hdr.light .nav div.on{background:#2B2B2E;color:#fff;border-color:#2B2B2E}
+.hdr.light .acct{font:500 12px Brand,sans-serif;color:#3F4450}
+.hdr .acct{font:500 12px Brand,sans-serif;color:rgba(255,255,255,.85)}
+.btn.o{background:var(--acc);color:#fff}
+.btn.g{background:transparent;color:#3F4450;padding-left:6px;padding-right:6px}
+.btn.dis{background:#E5E7EB;color:#9097A3}
+.btn.red{background:#B4321F;color:#fff}
+.h1{font:600 30px Brand,sans-serif;letter-spacing:-.015em;line-height:1.15}
+.h2{font:600 20px Brand,sans-serif;letter-spacing:-.01em}
+.h3{font:600 16px Brand,sans-serif}
+.lead{font:400 15px Brand,sans-serif;color:#4B5160;line-height:1.6}
+.row{display:flex;gap:16px;align-items:flex-start}
+.col{display:flex;flex-direction:column;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.sp{flex:1}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.mt24{margin-top:24px}
+.tier{background:#fff;border:1.5px solid #E2E4E8;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;position:relative}
+.tier.sel{border:2px solid var(--acc);box-shadow:0 8px 24px rgba(236,100,18,.14)}
+.tier .tn{font:600 18px Brand,sans-serif}
+.tier .tp{font:600 30px Brand,sans-serif;letter-spacing:-.02em}
+.tier .tp small{font:500 13px Brand,sans-serif;color:#6B7280;letter-spacing:0}
+.tier .tag{position:absolute;top:-11px;left:20px;font:700 10px Brand,sans-serif;letter-spacing:.08em;text-transform:uppercase;background:var(--acc);color:#fff;border-radius:10px;padding:4px 10px}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.tier li{font:400 13px Brand,sans-serif;color:#2A2E37;display:flex;gap:8px;align-items:flex-start}
+.tick{color:#1F8A4C;font-weight:700;flex:none}
+.lockc{color:#9097A3;flex:none}
+.cmp{width:100%;border-collapse:collapse;font:400 13px Brand,sans-serif}
+.cmp th{font:600 12px Brand,sans-serif;text-align:left;padding:10px 14px;background:#FBFBFC;border-bottom:1px solid #E5E7EB;color:#3F4450}
+.cmp td{padding:10px 14px;border-bottom:1px solid #F0F1F3}
+.cmp td.c,.cmp th.c{text-align:center}
+.cmp tr.grp td{font:600 11px Brand,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:#6B7280;background:#FAFAFB}
+.tbl{width:100%;border-collapse:collapse;font:400 13px Brand,sans-serif}
+.tbl th{font:600 11px Brand,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#6B7280;text-align:left;padding:10px 14px;border-bottom:1px solid #E5E7EB}
+.tbl td{padding:12px 14px;border-bottom:1px solid #F0F1F3;vertical-align:middle}
+.steps{display:flex;gap:0;align-items:center}
+.stp{display:flex;align-items:center;gap:8px;font:500 13px Brand,sans-serif;color:#6B7280}
+.stp i{width:24px;height:24px;border-radius:50%;border:1.5px solid #C9CDD5;display:flex;align-items:center;justify-content:center;font:600 11px Brand,sans-serif;font-style:normal;color:#6B7280;background:#fff}
+.stp.on{color:#16181D;font-weight:600}.stp.on i{border-color:var(--acc);background:var(--acc);color:#fff}
+.stp.done i{border-color:#1F8A4C;background:#1F8A4C;color:#fff}
+.stl{width:56px;height:1.5px;background:#D5D8DE;margin:0 12px}
+.bar{height:8px;border-radius:4px;background:#EEF0F3;overflow:hidden}
+.bar b{display:block;height:100%;background:var(--acc);border-radius:4px}
+.sw{width:28px;height:28px;border-radius:8px;border:1px solid rgba(0,0,0,.08);flex:none}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid #F0F1F3}
+.chk:first-child{border-top:0}
+.dot{width:22px;height:22px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font:700 11px Brand,sans-serif;color:#fff}
+.dot.ok{background:#1F8A4C}.dot.run{background:var(--acc)}.dot.wait{background:#fff;border:1.5px solid #C9CDD5}
+.locked{opacity:.55;filter:grayscale(1)}
+.lockpill{display:inline-flex;align-items:center;gap:5px;font:700 10px Brand,sans-serif;letter-spacing:.06em;text-transform:uppercase;border-radius:10px;padding:3px 8px;background:#2B2B2E;color:#fff}
+.lockpill.prem{background:#7A4BC2}.lockpill.ent{background:#2B2B2E}
+.modalwrap{position:absolute;inset:0;background:rgba(18,20,26,.48);display:flex;align-items:center;justify-content:center;z-index:5}
+.modal{background:#fff;border-radius:20px;box-shadow:0 30px 70px rgba(0,0,0,.3);overflow:hidden}
+.web-hero{background:linear-gradient(180deg,#FFF7F1 0%,#F3F3F3 100%);padding:56px 64px 40px;text-align:center}
+.eyebrow2{font:600 11px Brand,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.email{width:640px;margin:0 auto;background:#fff;border:1px solid #E5E7EB;border-radius:12px;overflow:hidden}
+.mailmeta{background:#fff;border-bottom:1px solid #E5E7EB;padding:16px 28px;font:400 13px Brand,sans-serif;color:#3F4450;display:grid;grid-template-columns:70px 1fr;row-gap:6px}
+.mailmeta b{font-weight:600;color:#6B7280}
+.otp{display:flex;gap:10px}
+.otp div{width:52px;height:60px;border:1.5px solid #D5D8DE;border-radius:10px;display:flex;align-items:center;justify-content:center;font:600 24px Brand,sans-serif;background:#fff}
+.otp div.f{border-color:var(--acc)}
+.phbox{background:repeating-linear-gradient(135deg,#F1F2F4 0 10px,#E9EBEE 10px 20px);border:1px dashed #C9CDD5;border-radius:12px;display:flex;align-items:center;justify-content:center;font:500 12px Brand,sans-serif;color:#6B7280}
+.qr{width:132px;height:132px;background:
+ conic-gradient(from 90deg at 2px 2px,#0000 90deg,#16181D 0) 0 0/12px 12px;border:8px solid #fff;outline:1px solid #E5E7EB;border-radius:6px}
+.toggle{width:34px;height:20px;border-radius:10px;background:#C9CDD5;position:relative;flex:none}
+.toggle:after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.toggle.on{background:#1F8A4C}.toggle.on:after{left:16px}
+.stepper{display:inline-flex;align-items:center;border:1px solid #D5D8DE;border-radius:10px;overflow:hidden;background:#fff}
+.stepper span{width:34px;height:34px;display:flex;align-items:center;justify-content:center;font:600 15px Brand,sans-serif;color:#3F4450}
+.stepper b{width:44px;text-align:center;font:600 14px Brand,sans-serif;border-left:1px solid #E5E7EB;border-right:1px solid #E5E7EB;line-height:34px}
+
+html,body{background:#E7E8EC}
+body{display:block;padding:20px 0 96px}
+.stagep{display:flex;justify-content:center}
+.frame{transform-origin:top center}
+.hot{cursor:pointer}
+.showlinks .hot{outline:2px solid rgba(37,99,235,.85);outline-offset:2px;border-radius:8px;background-color:rgba(37,99,235,.06)}
+.tb{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:4px;
+ background:#16181D;color:#fff;border-radius:14px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.28);font:500 13px Brand,sans-serif}
+.tb a,.tb button{white-space:nowrap;color:#fff;text-decoration:none;background:transparent;border:0;font:inherit;padding:8px 12px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.tb a:hover,.tb button:hover,.tb button.on{background:rgba(255,255,255,.12)}
+.tb .cur{padding:8px 14px;color:#C9CDD5;white-space:nowrap}
+.tb .cur b{color:#fff;font-weight:600}
+.tb .sep{width:1px;height:22px;background:rgba(255,255,255,.18);margin:0 4px}
+.tb .dis{opacity:.35;pointer-events:none}
+.pop{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:49;width:min(720px,92vw);max-height:70vh;overflow:auto;
+ background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.25);padding:22px 24px;display:none;font:400 13px Brand,sans-serif;color:#2A2E37;line-height:1.6}
+.pop.open{display:block}
+.pop h4{font:600 11px Brand,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6B7280;margin:14px 0 6px}
+.pop h4:first-child{margin-top:0}
+.pop a.sc{display:flex;gap:10px;padding:5px 8px;border-radius:8px;color:#16181D;text-decoration:none}
+.pop a.sc:hover{background:#F3F4F6}
+.pop a.sc span{font-family:'IBM Plex Mono',monospace;color:#B44A0B;width:34px;flex:none}
+.pop a.sc.here{background:#FDF0E7}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#16181D;color:#fff;padding:9px 16px;border-radius:10px;font:500 12px Brand,sans-serif;z-index:60;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+</style></head>
+<body>
+<div class="stagep"><div class="frame" style="--hdr:#2B2B2E;--acc:#EC6412;--soft:#FDF0E7;--deep:#B44A0B;--grad:linear-gradient(90deg,#F7892F 0%,#EC6412 55%,#C9500C 100%);position:relative;">
+<div class="hdr light"><div class="brand"><img src="../assets/mstrategy-logo.png" alt="MStrategy" style="height:40px;width:auto;display:block"><div class="dv" style="background:#E2E4E8"></div><div class="prod" style="color:#3F4450;font-weight:600">Portal Hub</div></div><div class="nav"><div class="on">My portals</div><div class="">Billing</div><div class="">Team</div><div class="">Help</div></div><div class="hr"><span class="acct">Cedar Ridge Advisory</span><div class="bell"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M18 8.5a6 6 0 10-12 0c0 4.2-1.4 5.6-2 6.3-.3.3-.1.9.4.9h15.2c.5 0 .7-.6.4-.9-.6-.7-2-2.1-2-6.3z"/><path d="M10.2 19.3a2.2 2.2 0 003.6 0"/></svg><b></b></div><div class="av">DM</div></div></div><div class="strip">Portal Hub &middot; My portals</div>
+<div style="padding:32px 40px 40px;min-height:740px">
+  <div class="h1">Welcome, Dana</div><div class="t12 muted mt8">Cedar Ridge Advisory &middot; Account Owner</div>
+  <div class="row mt24" style="gap:20px;align-items:stretch">
+    <div class="card" style="flex:2;padding:48px;display:flex;flex-direction:column;align-items:center;text-align:center;border:2px dashed #E2C4AE;background:#FFFBF8">
+      <div style="width:64px;height:64px;border-radius:18px;background:var(--soft);display:flex;align-items:center;justify-content:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#EC6412" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+      <div class="h2 mt16">Launch your first portal</div>
+      <div class="t12 muted mt8" style="max-width:440px">Pick a plan, name your portal and connect your Box. We'll build a first draft in your logo and colors while you watch.</div>
+      <div class="btn o lg mt24"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 5v14M5 12h14"/></svg> Launch a portal</div>
+      <div class="row mt24" style="gap:28px"><div class="t12 muted">1. Choose a plan</div><div class="t12 muted">2. Configure</div><div class="t12 muted">3. Pay and launch</div></div>
+    </div>
+    <div class="col" style="flex:1">
+      <div class="card"><div class="ch">Your account</div><div class="cb col" style="gap:10px">
+        <div class="row"><span class="t12 muted sp">Portals</span><span class="b13">0</span></div>
+        <div class="row"><span class="t12 muted sp">Payment method</span><span class="t12">Added at launch</span></div>
+        <div class="row"><span class="t12 muted sp">Two-factor sign-in</span><span class="pill ok">On</span></div>
+        <div class="row"><span class="t12 muted sp">Your role</span><span class="t12">Account Owner</span></div></div></div>
+      <div class="card"><div class="ch">Help</div><div class="cb col" style="gap:10px">
+        <div class="t12"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B44A0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polygon points="6 4 20 12 6 20 6 4"/></svg> &nbsp;Watch: launching a portal (3 min)</div>
+        <div class="t12"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B44A0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg> &nbsp;Compare plans</div>
+        <div class="t12"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#B44A0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3M12 17h.01"/></svg> &nbsp;Contact support</div></div></div>
+    </div>
+  </div>
+</div><div class="foot"><span class="c">&copy; 2026 M Strategy Group &middot; Portal Hub</span><div class="l"><span>Privacy</span><span>Terms</span><span>Security</span><span>Support</span></div><span class="c">Payments processed by Stripe</span></div>
+</div></div>
+<div class="tb"><a href="../index.html" title="Home">&#8962; Home</a><div class="sep"></div><a class="" href="104-Verify-email-and-2FA.html">&larr;</a><span class="cur"><b>105</b> &nbsp;Hub dashboard: first visit</span><a class="" href="106-Launch-choose-plan.html">&rarr;</a><div class="sep"></div><button data-k="list">All screens</button><button data-k="notes">Notes</button><button data-k="links">Show links</button></div>
+<div class="pop" id="p-list"><h4>Website and sign-up</h4><a class="sc" href="101-Pricing-and-plans.html"><span>101</span>Pricing and plan comparison</a><a class="sc" href="102-Feature-detail-DRM.html"><span>102</span>Feature detail: DRM</a><a class="sc" href="103-Create-account.html"><span>103</span>Create account</a><a class="sc" href="104-Verify-email-and-2FA.html"><span>104</span>Verify email and set up two-factor sign-in</a><h4>Hub: launch</h4><a class="sc here" href="105-Hub-empty-state.html"><span>105</span>Hub dashboard: first visit</a><a class="sc" href="106-Launch-choose-plan.html"><span>106</span>Launch: choose a plan</a><a class="sc" href="107-Launch-configure.html"><span>107</span>Launch: configure</a><a class="sc" href="108-Launch-review-and-pay.html"><span>108</span>Launch: review and pay</a><a class="sc" href="109-Provisioning-progress.html"><span>109</span>Provisioning progress</a><h4>Hub: manage</h4><a class="sc" href="110-Hub-my-portals.html"><span>110</span>Hub dashboard: my portals</a><a class="sc" href="111-Portal-detail.html"><span>111</span>Portal detail</a><a class="sc" href="112-Change-plan-and-users.html"><span>112</span>Change plan / add users</a><a class="sc" href="113-Billing.html"><span>113</span>Billing</a><a class="sc" href="114-Hub-team-and-roles.html"><span>114</span>Team and roles</a><a class="sc" href="115-Cancel-portal.html"><span>115</span>Cancel a portal</a><h4>Emails</h4><a class="sc" href="201-Email-verify.html"><span>201</span>Email: verify your email</a><a class="sc" href="202-Email-portal-ready.html"><span>202</span>Email: your portal is ready</a><a class="sc" href="203-Email-lead-alert.html"><span>203</span>Email: launch lead alert</a><a class="sc" href="204-Email-receipt.html"><span>204</span>Email: receipt</a><h4>Portal: first run</h4><a class="sc" href="301-Portal-branded-login.html"><span>301</span>Branded login (first draft)</a><a class="sc" href="302-Setup-branding.html"><span>302</span>Setup tour: confirm branding</a><a class="sc" href="303-Setup-welcome-page.html"><span>303</span>Setup tour: welcome page</a><a class="sc" href="304-Setup-Box-connection.html"><span>304</span>Setup tour: Box connection</a><a class="sc" href="305-Setup-roles-and-team.html"><span>305</span>Setup tour: roles and team</a><h4>Portal: everyday and upgrades</h4><a class="sc" href="306-Portal-home.html"><span>306</span>Portal home: Portal Admin view</a><a class="sc" href="310-Portal-home-internal-user.html"><span>310</span>Portal home: Internal User view</a><a class="sc" href="311-Portal-home-client-view.html"><span>311</span>Portal home: client (External User) view</a><a class="sc" href="307-Portal-tools-locked-features.html"><span>307</span>Portal tools with locked features</a><a class="sc" href="308-Upgrade-prompt.html"><span>308</span>Upgrade prompt</a><a class="sc" href="309-Integrations-catalog.html"><span>309</span>Integrations catalog</a></div>
+<div class="pop" id="p-notes"><h4>105 &middot; Hub</h4><div style="font:600 18px Brand,sans-serif;margin-bottom:6px">Hub dashboard: first visit</div><div>What Dana sees right after sign-up. No portals yet, one clear action. The hub is MStrategy branded; each launched portal carries the customer's brand.</div><h4>From this screen you can go to</h4><div>101 Pricing and plan comparison, 106 Launch: choose a plan, 110 Hub dashboard: my portals, 113 Billing, 114 Team and roles.</div><div style="margin-top:12px"><a href="../105-Hub-empty-state.html" style="color:#B44A0B;font-weight:600">Open the annotated version</a></div></div>
+<div class="toast">Highlighted items are clickable. Use the arrows to move between screens.</div>
+<script>const LINKS=[["My portals", "110"], ["Billing", "113"], ["Team", "114"], [".hdr .brand", "110"], ["^Launch a portal", "106"], ["Compare plans", "101"]];const FILES={"101": "101-Pricing-and-plans.html", "102": "102-Feature-detail-DRM.html", "103": "103-Create-account.html", "104": "104-Verify-email-and-2FA.html", "105": "105-Hub-empty-state.html", "106": "106-Launch-choose-plan.html", "107": "107-Launch-configure.html", "108": "108-Launch-review-and-pay.html", "109": "109-Provisioning-progress.html", "110": "110-Hub-my-portals.html", "111": "111-Portal-detail.html", "112": "112-Change-plan-and-users.html", "113": "113-Billing.html", "114": "114-Hub-team-and-roles.html", "115": "115-Cancel-portal.html", "201": "201-Email-verify.html", "202": "202-Email-portal-ready.html", "203": "203-Email-lead-alert.html", "204": "204-Email-receipt.html", "301": "301-Portal-branded-login.html", "302": "302-Setup-branding.html", "303": "303-Setup-welcome-page.html", "304": "304-Setup-Box-connection.html", "305": "305-Setup-roles-and-team.html", "306": "306-Portal-home.html", "310": "310-Portal-home-internal-user.html", "311": "311-Portal-home-client-view.html", "307": "307-Portal-tools-locked-features.html", "308": "308-Upgrade-prompt.html", "309": "309-Integrations-catalog.html"};const PREV="104-Verify-email-and-2FA.html";const NEXT="106-Launch-choose-plan.html";
+(function(){
+  const fr=document.querySelector('.frame');
+  function fit(){const w=Math.min(1,(window.innerWidth-32)/1440);fr.style.zoom=w<1?w:'';}
+  fit();addEventListener('resize',fit);
+  function nodes(){return [...fr.querySelectorAll('*')].filter(e=>!e.closest('.tb'));}
+  const all=nodes(), norm=s=>(s||'').replace(/\s+/g,' ').trim();
+  LINKS.forEach(([key,to])=>{
+    let hits=[];
+    if(key.startsWith('.')){hits=[...fr.querySelectorAll(key)];}
+    else{
+      const sw=key.startsWith('^'), k=sw?key.slice(1):key;
+      hits=all.filter(e=>{const t=norm(e.innerText);return sw?t.startsWith(k):t===k;});
+      hits=hits.filter(e=>![...e.children].some(c=>hits.includes(c)));   // deepest match only
+    }
+    hits.forEach(e=>{ if(e.dataset.to) return; e.dataset.to=to; e.classList.add('hot');
+      e.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();location.href=FILES[to];});});
+  });
+  // Clicks on anything else: nudge toward the links.
+  fr.addEventListener('click',()=>{const t=document.querySelector('.toast');t.classList.add('show');
+    document.body.classList.add('showlinks');setTimeout(()=>{t.classList.remove('show');
+    if(!document.querySelector('[data-k="links"]').classList.contains('on'))document.body.classList.remove('showlinks');},1400);});
+  const tg=(k,fn)=>document.querySelector(`[data-k="${k}"]`).addEventListener('click',fn);
+  tg('links',e=>{e.currentTarget.classList.toggle('on');document.body.classList.toggle('showlinks');});
+  const pops={notes:document.getElementById('p-notes'),list:document.getElementById('p-list')};
+  ['notes','list'].forEach(k=>tg(k,e=>{const o=!pops[k].classList.contains('open');
+    Object.values(pops).forEach(p=>p.classList.remove('open'));
+    document.querySelectorAll('.tb button').forEach(b=>{if(b.dataset.k!=='links')b.classList.remove('on')});
+    if(o){pops[k].classList.add('open');e.currentTarget.classList.add('on');}}));
+  addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&NEXT)location.href=NEXT;if(e.key==='ArrowLeft'&&PREV)location.href=PREV;
+    if(e.key==='Escape')Object.values(pops).forEach(p=>p.classList.remove('open'));});
+})();
+</script>
+</body></html>
